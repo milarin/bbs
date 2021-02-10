@@ -10,7 +10,10 @@
         <p>{{ $message }}</p>
         @foreach ($articles as $article)
             <p>
-              <a href="{{ route('article.show', ['id' => $article->id]) }}">{{ $article->content }}</a>
+            <a href='{{ route("article.show", ["id" =>  $article->id]) }}'>
+                    {{ $article->content }},
+                    {{ $article->user_name }}
+                </a>
             </p>
         @endforeach
     </body>
