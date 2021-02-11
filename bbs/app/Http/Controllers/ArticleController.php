@@ -32,12 +32,8 @@ class ArticleController extends Controller
      */
     public function create(Request $request)
     {
-        $article = new Article();
-
-        $article->content = 'Hello BBS';
-        $article->user_name = 'paiza';
-        $article->save();
-        return redirect('/articles');
+        $message = 'New article';
+        return view('new', ['message' => $message]);
     }
 
     /**
@@ -48,7 +44,12 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = new Article;
+
+        $article->content = $request->content;
+        $article->user_name = $request->user_name;
+        $article->save();
+        return redirect()->route('article.show', ['id' => $article->id]);
     }
 
     /**
@@ -70,9 +71,11 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Request $request, $id, Article $article)
     {
-        //
+        $message = 'Edit your article' .$id;
+        $article = Article::find($id);
+        return view('show', ['message' => $message, 'article' => $article]);
     }
 
     /**
