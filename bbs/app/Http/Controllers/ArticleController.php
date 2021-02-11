@@ -85,9 +85,13 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id, Article $article)
     {
-        //
+        $article = Article::find($id);
+        $article->content = $request->content;
+        $article->user_name = $request->user_name;
+        $article->save();
+        return redirect()->route('article.show', ['id' => $article->id]);
     }
 
     /**
